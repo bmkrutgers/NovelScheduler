@@ -1,4 +1,6 @@
-# Qdisc Sample: a starter qdisc and build system for new schedulers
+# Qdisc Sample
+
+This is a starter qdisc and build system to quickly prototype new packet schedulers in Linux.
 
 These instructions were tested on a fresh Ubuntu 20.04 LTS machine.
 The kernel version is 5.4.0-100-generic.
@@ -10,7 +12,7 @@ On a fresh Ubuntu machine, you may need to run `sudo apt-get update` first to re
 ### (1) Build `tc` tools by configuring and compiling iproute2
 
 ```
-build_tc.sh
+sh build_tc.sh
 ```
 
 ### (2) Build the new sample qdisc (scheduler) module
@@ -44,6 +46,7 @@ in the sch_fq_new.c file.
 ### (3) Load the kernel module
 
 ```
+cd .. # return to top-level repo folder
 sudo insmod sch-5.4/sch_fq_new.ko
 ```
 
@@ -103,6 +106,11 @@ The bandwidth between two sockets is now rate-limited at 80 Mbit/s.
 If needed, later, the qdisc can be removed by running
 ```
 sudo tc qdisc del dev lo root
+```
+
+The scheduler kernel module can now be removed using
+```
+sudo rmmod sch_fq_new
 ```
 
 #### Older notes
